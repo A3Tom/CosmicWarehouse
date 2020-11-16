@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CosmicWarehouse.App", "CosmicWarehouse.App\CosmicWarehouse.App.csproj", "{E42DC614-4F56-486D-9EEB-591F3046A32B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CosmicWarehouse.Domain", "CosmicWarehouse.Domain\CosmicWarehouse.Domain.csproj", "{E26605D9-BDE5-4B7E-A370-1D1094369EE5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CosmicWarehouse.Data", "CosmicWarehouse.Data\CosmicWarehouse.Data.csproj", "{D8B1BBBE-0F21-4AA6-B409-715917A4CBDA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CosmicWarehouse.Service", "CosmicWarehouse.Service\CosmicWarehouse.Service.csproj", "{C344D3C0-91EA-4F3A-BA42-4AF9EB85DDD6}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CosmicWarehouse.Database", "CosmicWarehouse.Database\CosmicWarehouse.Database.sqlproj", "{CCFAA4F2-C3A0-4CF5-83A3-CCA1A17D5895}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E42DC614-4F56-486D-9EEB-591F3046A32B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E42DC614-4F56-486D-9EEB-591F3046A32B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E42DC614-4F56-486D-9EEB-591F3046A32B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E42DC614-4F56-486D-9EEB-591F3046A32B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E26605D9-BDE5-4B7E-A370-1D1094369EE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E26605D9-BDE5-4B7E-A370-1D1094369EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E26605D9-BDE5-4B7E-A370-1D1094369EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E26605D9-BDE5-4B7E-A370-1D1094369EE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8B1BBBE-0F21-4AA6-B409-715917A4CBDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8B1BBBE-0F21-4AA6-B409-715917A4CBDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8B1BBBE-0F21-4AA6-B409-715917A4CBDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8B1BBBE-0F21-4AA6-B409-715917A4CBDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C344D3C0-91EA-4F3A-BA42-4AF9EB85DDD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C344D3C0-91EA-4F3A-BA42-4AF9EB85DDD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C344D3C0-91EA-4F3A-BA42-4AF9EB85DDD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C344D3C0-91EA-4F3A-BA42-4AF9EB85DDD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCFAA4F2-C3A0-4CF5-83A3-CCA1A17D5895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCFAA4F2-C3A0-4CF5-83A3-CCA1A17D5895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCFAA4F2-C3A0-4CF5-83A3-CCA1A17D5895}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CCFAA4F2-C3A0-4CF5-83A3-CCA1A17D5895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCFAA4F2-C3A0-4CF5-83A3-CCA1A17D5895}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCFAA4F2-C3A0-4CF5-83A3-CCA1A17D5895}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F7A287DB-BB7A-4EC6-86C8-C931458BC111}
+	EndGlobalSection
+EndGlobal

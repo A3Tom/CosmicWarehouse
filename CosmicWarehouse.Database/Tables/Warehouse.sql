@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Warehouse]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[Name] NVARCHAR(256) NOT NULL,
+	[Description] NVARCHAR(MAX)
+)
