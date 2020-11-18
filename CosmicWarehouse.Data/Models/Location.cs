@@ -15,6 +15,7 @@ namespace CosmicWarehouse.Data.Models
         public int WarehouseId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool Active { get; set; }
 
         public virtual Warehouse Warehouse { get; set; }
         public virtual ICollection<Item> Items { get; set; }

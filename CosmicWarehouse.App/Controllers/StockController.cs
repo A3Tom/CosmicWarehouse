@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using CosmicWarehouse.App.ViewModels;
 using CosmicWarehouse.Domain.Models;
+using CosmicWarehouse.Domain.ViewModels;
 using CosmicWarehouse.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

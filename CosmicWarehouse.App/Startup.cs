@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CosmicWarehouse.Data.Contexts;
+using CosmicWarehouse.Data.Repositories;
 using CosmicWarehouse.Service.Classes;
 using CosmicWarehouse.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +41,8 @@ namespace CosmicWarehouse.App
 
             #region Services
             services.AddScoped<IStockService, StockService>();
+
+            services.AddTransient<ICosmicWarehouseRepository, CosmicWarehouseRepository>();
             #endregion
 
             services.AddControllers();
