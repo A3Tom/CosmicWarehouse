@@ -1,12 +1,12 @@
-﻿using CosmicWarehouse.Data.Models;
+﻿using CosmicWarehouse.Data.Contexts;
 
 namespace CosmicWarehouse.Data.Repositories
 {
     public class CosmicWarehouseRepository
     {
-        private readonly CosmicWarehouseContext _dbContext;
+        private readonly CosmicWarehouseDbContext _dbContext;
 
-        public CosmicWarehouseRepository(CosmicWarehouseContext dbContext)
+        public CosmicWarehouseRepository(CosmicWarehouseDbContext dbContext)
         {
             _dbContext = dbContext;
         }
