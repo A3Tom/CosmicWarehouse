@@ -60,5 +60,13 @@ namespace CosmicWarehouse.App.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        public IActionResult UpdateStock([FromBody] IEnumerable<StockDto> newStock)
+        {
+            _stockService.AddStock(newStock);
+
+            return Ok();
+        }
     }
 }

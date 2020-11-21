@@ -18,21 +18,19 @@ namespace CosmicWarehouse.Domain.ViewModels
         public string LocationName { get; init; }
         public string WarehouseName { get; init; }
 
-        public static implicit operator StockVM(ItemStock entity)
+        public static implicit operator StockVM(Item entity)
         {
             return new StockVM()
             {
-                StockId = entity.Id,
-                ItemId = entity.ItemId,
-                ItemName = entity.Item.Name,
-                ItemDescription = entity.Item.Description,
+                ItemId = entity.Id,
+                ItemName = entity.Name,
+                ItemDescription = entity.Description,
                 Weight = entity.Weight,
-                Active = entity.Active,
 
-                LocationId = entity.Item.LocationId,
-                LocationName = entity.Item.Location.Name,
-                WarehouseId = entity.Item.Location.WarehouseId,
-                WarehouseName = entity.Item.Location.Warehouse.Name
+                LocationId = entity.LocationId,
+                LocationName = entity.Location.Name,
+                WarehouseId = entity.Location.WarehouseId,
+                WarehouseName = entity.Location.Warehouse.Name
             };
         }
     }

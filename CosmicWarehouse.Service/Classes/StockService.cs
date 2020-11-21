@@ -50,7 +50,7 @@ namespace CosmicWarehouse.Service.Classes
             throw new System.NotImplementedException();
         }
 
-        private static IEnumerable<StockVM> GetStockAsViewModel(IEnumerable<ItemStock> itemStock)
+        private static IEnumerable<StockVM> GetStockAsViewModel(IEnumerable<Item> itemStock)
         {
             return itemStock.Select(x => (StockVM)itemStock);
         }

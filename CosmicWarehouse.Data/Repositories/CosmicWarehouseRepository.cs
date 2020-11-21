@@ -14,17 +14,17 @@ namespace CosmicWarehouse.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public Task<IEnumerable<ItemStock>> GetStockForItem(int itemId)
+        public Task<IEnumerable<Item>> GetStockForItem(int itemId)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<ItemStock>> GetStockInLocation(int locationId)
+        public Task<IEnumerable<Item>> GetStockInLocation(int locationId)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<ItemStock>> GetStockInWarehouse(int warehouseId)
+        public Task<IEnumerable<Item>> GetStockInWarehouse(int warehouseId)
         {
             throw new System.NotImplementedException();
         }

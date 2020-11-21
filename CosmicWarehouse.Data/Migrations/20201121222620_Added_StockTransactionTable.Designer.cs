@@ -4,14 +4,16 @@ using CosmicWarehouse.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CosmicWarehouse.Data.Migrations
 {
     [DbContext(typeof(CosmicWarehouseDbContext))]
-    partial class CosmicWarehouseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201121222620_Added_StockTransactionTable")]
+    partial class Added_StockTransactionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
