@@ -17,6 +17,8 @@ namespace CosmicWarehouse.Data.Repositories
             _dbContext = dbContext;
         }
 
+        #region Items
+
         public async Task<IEnumerable<Item>> AddStock(IEnumerable<Item> itemStock)
         {
             var stockTransactions = new List<StockTransaction>();
@@ -92,6 +94,8 @@ namespace CosmicWarehouse.Data.Repositories
 
             return item;
         }
+
+        #endregion
 
         private StockTransaction BuildStockTransaction(int itemId, int previousQuantity, int newQuantity)
         {
