@@ -14,6 +14,7 @@ namespace CosmicWarehouse.Data.Models
         public int ItemId { get; set; }
         public int PreviousQuantity { get; set; }
         public int NewQuantity { get; set; }
+
         public DateTime TransactionDateTime { get; set; }
 
         public virtual Item Item { get; set; }

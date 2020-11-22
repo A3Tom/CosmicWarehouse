@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CosmicWarehouse.Data.Models;
@@ -6,53 +7,97 @@ using CosmicWarehouse.Data.Repositories;
 using CosmicWarehouse.Domain.Models;
 using CosmicWarehouse.Domain.ViewModels;
 using CosmicWarehouse.Service.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace CosmicWarehouse.Service.Classes
 {
     public class StockService : IStockService
     {
+        private readonly ILogger<StockService> _logger;
+
         private readonly ICosmicWarehouseRepository _cosmicWarehouseRepo;
 
-        public StockService(ICosmicWarehouseRepository cosmicWarehouseRepository)
+        public StockService(ILogger<StockService> logger,
+            ICosmicWarehouseRepository cosmicWarehouseRepository)
         {
+            _logger = logger;
             _cosmicWarehouseRepo = cosmicWarehouseRepository;
         }
 
-        public async Task<IEnumerable<StockVM>> GetStockForItem(int itemId)
+        public async Task<StockVM> GetItemStock(int itemId)
         {
-            var stock = await _cosmicWarehouseRepo.GetStockForItem(itemId);
+            try
+            {
+                var result = await _cosmicWarehouseRepo.GetStockForItem(itemId);
 
-            return GetStockAsViewModel(stock);
+                return GetItemStockAsViewModel(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed getting details of item id {itemId}", ex);
+                throw;
+            }
         }
 
-        public async Task<IEnumerable<StockVM>> GetStockInLocation(int locationId)
+        public async Task<IEnumerable<StockVM>> AddStock(IEnumerable<StockDto> newStock)
         {
-            var stock = await _cosmicWarehouseRepo.GetStockInLocation(locationId);
+            var stockToAdd = new List<Item>();
 
-            return GetStockAsViewModel(stock);
+            try
+            {
+                foreach (var stockDto in newStock)
+                {
+                    var newItem = new Item()
+                    {
+                        LocationId = stockDto.LocationId,
+                        Weight = stockDto.Weight,
+                        Quantity = stockDto.Quantity,
+                        Name = stockDto.Name,
+                        Description = stockDto.Description
+                    };
+
+                    stockToAdd.Add(newItem);
+                }
+
+                var newItemStock = await _cosmicWarehouseRepo.AddStock(stockToAdd);
+
+                _logger.LogInformation($"Added {stockToAdd.Count} new stock.");
+
+                return GetItemStockListAsViewModel(newItemStock);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed adding new stock", ex);
+                throw;
+            }
         }
 
-        public async Task<IEnumerable<StockVM>> GetStockInWarehouse(int warehouseId)
+        public async Task<StockVM> UpdateQuantity(int itemId, int quantityDiff)
         {
-            var stock = await _cosmicWarehouseRepo.GetStockInWarehouse(warehouseId);
+            try
+            {
+                var updatedItemStock = await _cosmicWarehouseRepo.UpdateQuantity(itemId, quantityDiff);
 
-            return GetStockAsViewModel(stock);
+                _logger.LogInformation($"Updated item Id {itemId} by {quantityDiff}");
+
+                return GetItemStockAsViewModel(updatedItemStock);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed updating item Id {itemId} by {quantityDiff}", ex);
+                throw;
+            }
         }
 
-
-        public Task AddStock(IEnumerable<StockDto> newStock)
+        private static IEnumerable<StockVM> GetItemStockListAsViewModel(IEnumerable<Item> itemStock)
         {
-            throw new System.NotImplementedException();
+            return itemStock.Select(x => GetItemStockAsViewModel(x));
         }
 
-        public Task UpdateStock(StockDto newStock)
+        private static StockVM GetItemStockAsViewModel(Item itemStock)
         {
-            throw new System.NotImplementedException();
+            return itemStock;
         }
 
-        private static IEnumerable<StockVM> GetStockAsViewModel(IEnumerable<Item> itemStock)
-        {
-            return itemStock.Select(x => (StockVM)itemStock);
-        }
     }
 }

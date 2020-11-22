@@ -2,10 +2,11 @@
 {
     public class StockDto
     {
-        public int? Id { get; init; }
-        public int ItemId { get; init; }
         public int LocationId { get; init; }
-        public int WarehouseId { get; init; }
+        public int Quantity { get; init; }
+
+        public string Name { get; init; }
+        public string Description { get; init; }
 
         public decimal Weight { get; init; }
 

@@ -11,6 +11,7 @@ namespace CosmicWarehouse.Data.Contexts
         public DbSet<StockTransaction> StockTransactions { get; set; }
 
 
+
         public CosmicWarehouseDbContext(DbContextOptions<CosmicWarehouseDbContext> options)
             : base(options)
         {

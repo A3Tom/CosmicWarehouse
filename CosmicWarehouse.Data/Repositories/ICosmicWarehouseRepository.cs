@@ -6,8 +6,10 @@ namespace CosmicWarehouse.Data.Repositories
 {
     public interface ICosmicWarehouseRepository
     {
-        Task<IEnumerable<Item>> GetStockForItem(int itemId);
+        Task<Item> GetStockForItem(int itemId);
         Task<IEnumerable<Item>> GetStockInWarehouse(int warehouseId);
         Task<IEnumerable<Item>> GetStockInLocation(int locationId);
+        Task<IEnumerable<Item>> AddStock(IEnumerable<Item> itemStock);
+        Task<Item> UpdateQuantity(int stockId, int quantity);
     }
 }

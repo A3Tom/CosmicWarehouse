@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using CosmicWarehouse.Domain.Models;
 using CosmicWarehouse.Domain.ViewModels;
 using CosmicWarehouse.Service.Interfaces;
@@ -22,51 +24,33 @@ namespace CosmicWarehouse.App.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<StockVM> GetAllInventory()
+        public async Task<IActionResult> GetItemStock(int itemId)
         {
-            _logger.LogInformation("Getting all Stock items in inventory");
+            _logger.LogInformation($"Getting stock for item: {itemId}");
 
-            return new List<StockVM>();
-        }
+            var result = await _stockService.GetItemStock(itemId);
 
-        [HttpGet]
-        public IEnumerable<StockVM> GetInventoryForWarehouse(int warehouseId)
-        {
-            _logger.LogInformation($"Getting all in Stock items in warehouse : {warehouseId}");
-
-            return new List<StockVM>();
-        }
-
-        [HttpGet]
-        public IEnumerable<StockVM> GetInventoryForLocation(int locationId)
-        {
-            _logger.LogInformation($"Getting all in Stock items in location : {locationId}");
-
-            return new List<StockVM>();
-        }
-
-        [HttpGet]
-        public IEnumerable<StockVM> GetInventoryForItem(int itemId)
-        {
-            _logger.LogInformation($"Getting all stock for item : {itemId}");
-
-            return new List<StockVM>();
+            return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult AddStock([FromBody] IEnumerable<StockDto> newStock)
+        public async Task<IActionResult> AddStock([FromBody] IEnumerable<StockDto> newStock)
         {
-            _stockService.AddStock(newStock);
+            _logger.LogInformation($"Adding new stock entries for {newStock.Count()}");
 
-            return Ok();
+            var result = await _stockService.AddStock(newStock);
+
+            return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult UpdateStock([FromBody] IEnumerable<StockDto> newStock)
+        public async Task<IActionResult> UpdateQuantityAsync(int itemId, int quantityDiff)
         {
-            _stockService.AddStock(newStock);
+            _logger.LogInformation($"Updating stock Id {itemId} by {quantityDiff}");
 
-            return Ok();
+            var result = await _stockService.UpdateQuantity(itemId, quantityDiff);
+
+            return Ok(result);
         }
     }
 }

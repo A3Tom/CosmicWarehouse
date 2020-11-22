@@ -7,10 +7,8 @@ namespace CosmicWarehouse.Service.Interfaces
 {
     public interface IStockService
     {
-        Task<IEnumerable<StockVM>> GetStockForItem(int itemId);
-        Task<IEnumerable<StockVM>> GetStockInLocation(int locationId);
-        Task<IEnumerable<StockVM>> GetStockInWarehouse(int warehouseId);
-        Task AddStock(IEnumerable<StockDto> newStock);
-        Task UpdateStock(StockDto newStock);
+        Task<StockVM> GetItemStock(int itemId);
+        Task<IEnumerable<StockVM>> AddStock(IEnumerable<StockDto> newStock);
+        Task<StockVM> UpdateQuantity(int itemId, int quantityDiff);
     }
 }
