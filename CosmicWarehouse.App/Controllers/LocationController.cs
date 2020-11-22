@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CosmicWarehouse.Domain.Models;
+using CosmicWarehouse.Domain.ViewModels;
+using CosmicWarehouse.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -9,14 +14,17 @@ namespace CosmicWarehouse.App.Controllers
     public class LocationController : ControllerBase
     {
         private readonly ILogger<LocationController> _logger;
+        private readonly ILocationService _locationService;
 
-        public LocationController(ILogger<LocationController> logger)
+        public LocationController(ILogger<LocationController> logger,
+            ILocationService locationService)
         {
             _logger = logger;
+            _locationService = locationService;
         }
 
         [HttpGet]
-        public IActionResult GetLocations(int? warehouseId = null)
+        public async Task<IActionResult> GetLocations(int? warehouseId = null)
         {
             var loggerMessage = "Getting locations";
 
@@ -26,19 +34,23 @@ namespace CosmicWarehouse.App.Controllers
 
             _logger.LogInformation(loggerMessage);
 
-            throw new NotImplementedException();
+            var result = await _locationService.GetLocations(warehouseId);
+
+            return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult AddLocation([FromBody] object newLocation)
+        public async Task<IActionResult> AddLocationAsync([FromBody] LocationDto newLocation)
         {
-            _logger.LogInformation("Adding new location");
+            _logger.LogInformation($"Adding new location, {newLocation.Name}");
 
-            throw new NotImplementedException();
+            var result = await _locationService.AddLocation(newLocation);
+
+            return Ok(result);
         }
 
         [HttpPatch]
-        public IActionResult Update([FromBody] object location)
+        public IActionResult Update([FromBody] LocationDto location)
         {
             _logger.LogInformation($"Updating location: ");
 
