@@ -50,19 +50,23 @@ namespace CosmicWarehouse.App.Controllers
         }
 
         [HttpPatch]
-        public IActionResult Update([FromBody] LocationDto location)
+        public async Task<IActionResult> UpdateAsync([FromBody] LocationDto location)
         {
-            _logger.LogInformation($"Updating location: ");
+            _logger.LogInformation($"Updating location: {location.Id}");
 
-            throw new NotImplementedException();
+            var result = await _locationService.Update(location);
+
+            return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult ToggleActive(int locationId, bool active)
+        public async Task<IActionResult> ToggleActiveAsync(int locationId, bool active)
         {
             _logger.LogInformation($"Toggling location {locationId} to {active}");
 
-            throw new NotImplementedException();
+            var result = await _locationService.ToggleActive(locationId, active);
+
+            return Ok(result);
         }
     }
 
