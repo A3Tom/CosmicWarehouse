@@ -41,6 +41,7 @@ namespace CosmicWarehouse.App
 
             #region Services
             services.AddScoped<IStockService, StockService>();
+            services.AddScoped<ILocationService, LocationService>();
 
             services.AddTransient<ICosmicWarehouseRepository, CosmicWarehouseRepository>();
             #endregion
