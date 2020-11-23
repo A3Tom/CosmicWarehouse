@@ -1,27 +1,32 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CosmicWarehouse.Data.Models;
+﻿using CosmicWarehouse.Data.Models;
 
 namespace CosmicWarehouse.Domain.ViewModels
 {
     public class LocationVM
     {
         public int Id { get; init; }
+        public int WarehouseId { get; init; }
 
         public string Name { get; init; }
+        public string Description { get; init; }
+        public string WarehouseName { get; init; }
+        public string WarehouseDescription { get; init; }
 
-        public WarehouseVM Warehouse { get; init; }
-        public IEnumerable<StockVM> Stock { get; init; }
+        public bool Active { get; init; }
 
-        //TODO : Move to automapper to flatten view models
+
         public static implicit operator LocationVM(Location entity)
         {
             return new LocationVM()
             {
                 Id = entity.Id,
+                WarehouseId = entity.WarehouseId,
                 Name = entity.Name,
-                Warehouse = entity.Warehouse,
-                Stock = entity.Items.Select(x => (StockVM)x)
+                Description = entity.Description,
+                Active = entity.Active,
+
+                WarehouseName = entity.Warehouse?.Name,
+                WarehouseDescription = entity.Warehouse?.Description
             };
         }
     }

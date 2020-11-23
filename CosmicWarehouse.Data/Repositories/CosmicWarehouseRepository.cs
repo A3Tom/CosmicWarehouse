@@ -111,6 +111,7 @@ namespace CosmicWarehouse.Data.Repositories
         public async Task<Location> GetLocation(int locationId)
         {
             return await _dbContext.Locations
+                .Include(x => x.Warehouse)
                 .Where(x => x.Id == locationId)
                 .SingleOrDefaultAsync();
         }
@@ -118,6 +119,7 @@ namespace CosmicWarehouse.Data.Repositories
         public async Task<IEnumerable<Location>> GetLocationsForWarehouse(int? warehouseId)
         {
             return await _dbContext.Locations
+                .Include(x => x.Warehouse)
                 .Where(x => x.WarehouseId == warehouseId)
                 .ToListAsync();
         }
