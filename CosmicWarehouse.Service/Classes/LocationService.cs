@@ -35,7 +35,8 @@ namespace CosmicWarehouse.Service.Classes
             {
                 Name = newLocation.Name,
                 Description = newLocation.Description,
-                WarehouseId = newLocation.WarehouseId
+                WarehouseId = newLocation.WarehouseId,
+                Active = true
             };
 
             var result = await _cosmicWarehouseRepo.AddLocation(newEntity);

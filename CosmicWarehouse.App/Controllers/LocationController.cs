@@ -37,7 +37,7 @@ namespace CosmicWarehouse.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddLocationAsync([FromBody] LocationDto newLocation)
+        public async Task<IActionResult> AddLocation([FromBody] LocationDto newLocation)
         {
             _logger.LogInformation($"Adding new location, {newLocation.Name}");
 
@@ -46,10 +46,10 @@ namespace CosmicWarehouse.App.Controllers
             return Ok(result);
         }
 
-        [HttpPatch]
-        public async Task<IActionResult> UpdateAsync([FromBody] LocationDto location)
+        [HttpPost]
+        public async Task<IActionResult> RenameLocation([FromBody] LocationDto location)
         {
-            _logger.LogInformation($"Updating location: {location.Id}");
+            _logger.LogInformation($"Renaming location: {location.Id}");
 
             var result = await _locationService.RenameLocation(location);
 
@@ -57,7 +57,7 @@ namespace CosmicWarehouse.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ToggleActiveAsync(int locationId, bool active)
+        public async Task<IActionResult> ToggleActive(int locationId, bool active)
         {
             _logger.LogInformation($"Toggling location {locationId} to {active}");
 
