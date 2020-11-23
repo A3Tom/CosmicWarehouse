@@ -25,5 +25,15 @@ namespace CosmicWarehouse.Data.Repositories
         Task<Location> UpdateLocation(Location entity);
 
         #endregion
+
+
+        #region Warehouses
+
+        Task<Warehouse> GetWarehouseById(int warehouseId);
+        Task<IEnumerable<Warehouse>> GetAllWarehouses();
+        Task<Warehouse> AddWarehouse(Warehouse newEntity);
+        Task<Warehouse> UpdateWarehouse(Warehouse entity);
+
+        #endregion
     }
 }
