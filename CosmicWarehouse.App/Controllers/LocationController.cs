@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CosmicWarehouse.Domain.Models;
-using CosmicWarehouse.Domain.ViewModels;
 using CosmicWarehouse.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -54,7 +51,7 @@ namespace CosmicWarehouse.App.Controllers
         {
             _logger.LogInformation($"Updating location: {location.Id}");
 
-            var result = await _locationService.Update(location);
+            var result = await _locationService.RenameLocation(location);
 
             return Ok(result);
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CosmicWarehouse.Data.Models;
@@ -21,24 +22,61 @@ namespace CosmicWarehouse.Service.Classes
             _logger = logger;
             _cosmicWarehouseRepo = cosmicWarehouseRepo;
         }
-        public Task<IEnumerable<LocationVM>> GetLocations(int? warehouseId)
+        public async Task<IEnumerable<LocationVM>> GetLocations(int? warehouseId)
         {
-            throw new System.NotImplementedException();
+            var result = await _cosmicWarehouseRepo.GetLocationsForWarehouse(warehouseId);
+
+            return GetLocationListAsViewModel(result);
         }
 
-        public Task<LocationVM> AddLocation(LocationDto newLocation)
+        public async Task<LocationVM> AddLocation(LocationDto newLocation)
         {
-            throw new System.NotImplementedException();
+            var newEntity = new Location()
+            {
+                Name = newLocation.Name,
+                Description = newLocation.Description,
+                WarehouseId = newLocation.WarehouseId
+            };
+
+            var result = await _cosmicWarehouseRepo.AddLocation(newEntity);
+
+            return GetLocationAsViewModel(result);
         }
 
-        public Task<LocationVM> Update(LocationDto location)
+        public async Task<LocationVM> RenameLocation(LocationDto location)
         {
-            throw new System.NotImplementedException();
+            var entity = await GetLocationEntity(location.Id);
+
+            entity.Name = location.Name;
+            entity.Description = location.Description;
+
+            var result = await _cosmicWarehouseRepo.UpdateLocation(entity);
+
+            return GetLocationAsViewModel(result);
         }
 
-        public Task<LocationVM> ToggleActive(int locationId, bool active)
+        public async Task<LocationVM> ToggleActive(int locationId, bool active)
         {
-            throw new System.NotImplementedException();
+            var entity = await GetLocationEntity(locationId);
+
+            entity.Active = active;
+
+            var result = await _cosmicWarehouseRepo.UpdateLocation(entity);
+
+            return GetLocationAsViewModel(result);
+        }
+
+        private async Task<Location> GetLocationEntity(int? locationId)
+        {
+            if (!locationId.HasValue)
+                throw new InvalidOperationException($"No location Id supplied.");
+
+            var entity = await _cosmicWarehouseRepo.GetLocation(locationId.Value);
+
+            if (entity == null)
+                throw new KeyNotFoundException($"No location was found with the Id of {locationId}");
+
+            return entity;
         }
 
         private static IEnumerable<LocationVM> GetLocationListAsViewModel(IEnumerable<Location> locations)

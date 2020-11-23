@@ -2,7 +2,7 @@
 {
     public class LocationDto
     {
-        public int Id { get; init; }
+        public int? Id { get; init; }
         public int WarehouseId { get; init; }
 
         public string Name { get; init; }

@@ -9,7 +9,7 @@ namespace CosmicWarehouse.Service.Interfaces
     {
         Task<IEnumerable<LocationVM>> GetLocations(int? warehouseId);
         Task<LocationVM> AddLocation(LocationDto newLocation);
-        Task<LocationVM> Update(LocationDto location);
+        Task<LocationVM> RenameLocation(LocationDto location);
         Task<LocationVM> ToggleActive(int locationId, bool active);
     }
 }

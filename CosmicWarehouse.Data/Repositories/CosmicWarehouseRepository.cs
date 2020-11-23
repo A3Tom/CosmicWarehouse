@@ -97,6 +97,41 @@ namespace CosmicWarehouse.Data.Repositories
 
         #endregion
 
+        #region Locations
+
+        public async Task<Location> AddLocation(Location newEntity)
+        {
+            _dbContext.Locations.Add(newEntity);
+
+            await _dbContext.SaveChangesAsync();
+
+            return newEntity;
+        }
+
+        public async Task<Location> GetLocation(int locationId)
+        {
+            return await _dbContext.Locations
+                .Where(x => x.Id == locationId)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Location>> GetLocationsForWarehouse(int? warehouseId)
+        {
+            return await _dbContext.Locations
+                .Where(x => x.WarehouseId == warehouseId)
+                .ToListAsync();
+        }
+
+        //TODO : Revise this abomination
+        public async Task<Location> UpdateLocation(Location entity)
+        {
+            await _dbContext.SaveChangesAsync();
+
+            return await GetLocation(entity.Id);
+        }
+
+        #endregion
+
         private StockTransaction BuildStockTransaction(int itemId, int previousQuantity, int newQuantity)
         {
             return new StockTransaction()
