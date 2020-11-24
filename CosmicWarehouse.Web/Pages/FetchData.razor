@@ -1,0 +1,70 @@
+﻿@page "/fetchdata"
+
+@using Models
+@using CosmicWarehouse.Domain.ViewModels
+
+@inject IHttpClientFactory _clientFactory
+ 
+<h1>Stock</h1>
+
+@if (stockItems is null)
+{
+    <p><em>Loading...</em></p>
+}
+else if(!string.IsNullOrEmpty(errorString))
+{
+    <p>
+        <div class="alert-danger">{{errorString}}</div>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Weight</th>
+                <th>Location</th>
+                <th>Warehouse</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in stockItems)
+            {
+            <tr>
+                <td>@item.ItemId</td>
+                <td>@item.ItemName</td>
+                <td>@item.ItemDescription</td>
+                <td>@item.Quantity</td>
+                <td>@item.Weight</td>
+                <td>@item.LocationName</td>
+                <td>@item.WarehouseName</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<StockVM> stockItems;
+    string errorString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = _clientFactory.CreateClient(DataSource.WAREHOUSE_API);
+
+        try
+        {
+            // TODO : Remove magic string and get a real query on the go
+            stockItems = await client.GetFromJsonAsync<IEnumerable<StockVM>>("Stock/GetAllWarehouseStock?warehouseId=1");
+            errorString = string.Empty;
+        }
+        catch (Exception ex)
+        {
+            errorString = ex.Message;
+        }
+    }
+}
