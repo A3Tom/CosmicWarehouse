@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CosmicWarehouse.Domain.Models;
-using CosmicWarehouse.Domain.ViewModels;
 using CosmicWarehouse.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -29,6 +28,14 @@ namespace CosmicWarehouse.App.Controllers
             _logger.LogInformation($"Getting stock for item: {itemId}");
 
             var result = await _stockService.GetItemStock(itemId);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllWarehouseStock(int warehouseId)
+        {
+            var result = await _stockService.GetAllStockForWarehouse(warehouseId);
 
             return Ok(result);
         }

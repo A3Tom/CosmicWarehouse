@@ -39,6 +39,13 @@ namespace CosmicWarehouse.Service.Classes
             }
         }
 
+        public  async Task<IEnumerable<StockVM>> GetAllStockForWarehouse(int warehouseId)
+        {
+            var result = await _cosmicWarehouseRepo.GetStockInWarehouse(warehouseId);
+
+            return GetItemStockListAsViewModel(result);
+        }
+
         public async Task<IEnumerable<StockVM>> AddStock(IEnumerable<StockDto> newStock)
         {
             var stockToAdd = new List<Item>();
@@ -98,6 +105,5 @@ namespace CosmicWarehouse.Service.Classes
         {
             return itemStock;
         }
-
     }
 }

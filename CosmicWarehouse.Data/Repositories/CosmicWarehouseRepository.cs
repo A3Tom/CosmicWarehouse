@@ -67,10 +67,9 @@ namespace CosmicWarehouse.Data.Repositories
 
         public async Task<IEnumerable<Item>> GetStockInWarehouse(int warehouseId)
         {
-            return await _dbContext.Warehouses
-                .Where(x => x.Id == warehouseId)
-                .SelectMany(w => w.Locations)
-                .SelectMany(l => l.Items)
+            return await _dbContext.Items
+                .Include(x => x.Location.Warehouse)
+                .Where(x => x.Location.WarehouseId == warehouseId)
                 .ToListAsync();
         }
 

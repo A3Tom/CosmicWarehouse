@@ -27,9 +27,9 @@ namespace CosmicWarehouse.Domain.ViewModels
                 Weight = entity.Weight,
 
                 LocationId = entity.LocationId,
-                LocationName = entity?.Location.Name,
-                WarehouseId = entity?.Location.WarehouseId,
-                WarehouseName = entity?.Location.Warehouse.Name
+                LocationName = entity.Location?.Name,
+                WarehouseId = entity.Location?.WarehouseId,
+                WarehouseName = entity.Location?.Warehouse.Name
             };
         }
     }
