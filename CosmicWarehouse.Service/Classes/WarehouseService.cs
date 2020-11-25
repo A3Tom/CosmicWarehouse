@@ -38,9 +38,9 @@ namespace CosmicWarehouse.Service.Classes
             return GetWarehouseAsViewModel(result);
         }
 
-        public async Task<IEnumerable<WarehouseVM>> GetAllWarehouses()
+        public async Task<IEnumerable<WarehouseVM>> GetAllWarehouses(bool includeInactive)
         {
-            var result = await _cosmicWarehouseRepo.GetAllWarehouses();
+            var result = await _cosmicWarehouseRepo.GetAllWarehouses(includeInactive);
 
             return GetWarehouseListAsViewModel(result);
         }

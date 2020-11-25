@@ -73,6 +73,21 @@ namespace CosmicWarehouse.Data.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Item>> GetStock(int? warehouseId, int? locationId)
+        {
+            var query = _dbContext.Items
+                .Include(x => x.Location.Warehouse)
+                .AsQueryable();
+
+            if (warehouseId is not null)
+                query = query.Where(x => x.Location.WarehouseId == warehouseId);
+
+            if (locationId is not null)
+                query = query.Where(x => x.LocationId == locationId);
+
+            return await query.ToListAsync();
+        }
+
         public async Task<Item> UpdateQuantity(int itemId, int quantityDiff)
         {
             var item = await _dbContext.Items
@@ -150,6 +165,16 @@ namespace CosmicWarehouse.Data.Repositories
             return await _dbContext.Warehouses
                 .Where(x => x.Id == warehouseId)
                 .SingleOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Warehouse>> GetAllWarehouses(bool includeInactive)
+        {
+            var query = _dbContext.Warehouses.AsQueryable();
+
+            if (!includeInactive)
+                query.Where(x => x.Active);
+
+            return await query.ToListAsync();
         }
 
         public async Task<IEnumerable<Warehouse>> GetAllWarehouses()

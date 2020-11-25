@@ -31,11 +31,11 @@ namespace CosmicWarehouse.App.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllWarehouses()
+        public async Task<IActionResult> GetAllWarehouses(bool includeInactive = false)
         {
             _logger.LogInformation($"Getting all warehouses");
 
-            var result = await _warehouseService.GetAllWarehouses();
+            var result = await _warehouseService.GetAllWarehouses(includeInactive);
 
             return Ok(result);
         }

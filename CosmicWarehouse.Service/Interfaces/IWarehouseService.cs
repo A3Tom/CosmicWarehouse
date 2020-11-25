@@ -8,7 +8,7 @@ namespace CosmicWarehouse.Service.Interfaces
     public interface IWarehouseService
     {
         Task<WarehouseVM> GetWarehouse(int warehouseId);
-        Task<IEnumerable<WarehouseVM>> GetAllWarehouses();
+        Task<IEnumerable<WarehouseVM>> GetAllWarehouses(bool includeInactive);
         Task<WarehouseVM> AddWarehouse(WarehouseDto newWarehouse);
         Task<WarehouseVM> RenameWarehouse(WarehouseDto warehouse);
         Task<WarehouseVM> ToggleActive(int warehouseId, bool active);

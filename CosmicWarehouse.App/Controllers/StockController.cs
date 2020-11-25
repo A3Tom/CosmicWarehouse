@@ -33,9 +33,9 @@ namespace CosmicWarehouse.App.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllWarehouseStock(int warehouseId)
+        public async Task<IActionResult> GetStock(int? warehouseId = null, int? locationId = null)
         {
-            var result = await _stockService.GetAllStockForWarehouse(warehouseId);
+            var result = await _stockService.GetAllStock(warehouseId, locationId);
 
             return Ok(result);
         }

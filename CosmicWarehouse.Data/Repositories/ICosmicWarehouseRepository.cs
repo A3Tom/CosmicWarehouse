@@ -9,8 +9,7 @@ namespace CosmicWarehouse.Data.Repositories
         #region Items
 
         Task<Item> GetStockForItem(int itemId);
-        Task<IEnumerable<Item>> GetStockInWarehouse(int warehouseId);
-        Task<IEnumerable<Item>> GetStockInLocation(int locationId);
+        Task<IEnumerable<Item>> GetStock(int? warehouseId, int? locationId);
         Task<IEnumerable<Item>> AddStock(IEnumerable<Item> itemStock);
         Task<Item> UpdateQuantity(int stockId, int quantity);
 
@@ -30,7 +29,7 @@ namespace CosmicWarehouse.Data.Repositories
         #region Warehouses
 
         Task<Warehouse> GetWarehouseById(int warehouseId);
-        Task<IEnumerable<Warehouse>> GetAllWarehouses();
+        Task<IEnumerable<Warehouse>> GetAllWarehouses(bool includeInactive);
         Task<Warehouse> AddWarehouse(Warehouse newEntity);
         Task<Warehouse> UpdateWarehouse(Warehouse entity);
 
