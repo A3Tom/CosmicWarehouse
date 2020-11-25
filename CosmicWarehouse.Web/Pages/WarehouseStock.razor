@@ -1,11 +1,11 @@
-﻿@page "/fetchdata"
+﻿@page "/warehousestock"
 
 @using Models
 @using CosmicWarehouse.Domain.ViewModels
 
 @inject IHttpClientFactory _clientFactory
  
-<h1>Stock</h1>
+<h1>@pageTitle</h1>
 
 @if (stockItems is null)
 {
@@ -49,6 +49,8 @@ else
 }
 
 @code {
+    private string pageTitle = "Warehouse Stock";
+
     private IEnumerable<StockVM> stockItems;
     string errorString;
 
