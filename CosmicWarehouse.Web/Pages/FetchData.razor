@@ -55,11 +55,11 @@ else
     protected override async Task OnInitializedAsync()
     {
         var client = _clientFactory.CreateClient(DataSource.WAREHOUSE_API);
+        var url = "Stock/GetAllWarehouseStock?warehouseId=1";
 
         try
         {
-            // TODO : Remove magic string and get a real query on the go
-            stockItems = await client.GetFromJsonAsync<IEnumerable<StockVM>>("Stock/GetAllWarehouseStock?warehouseId=1");
+            stockItems = await client.GetFromJsonAsync<IEnumerable<StockVM>>(url);
             errorString = string.Empty;
         }
         catch (Exception ex)
