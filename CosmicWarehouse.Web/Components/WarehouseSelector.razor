@@ -1,0 +1,44 @@
+﻿@using Models
+@using CosmicWarehouse.Domain.ViewModels
+
+@namespace CosmicWarehouse.Web.Components
+@inject IHttpClientFactory _clientFactory
+
+
+<div class="btn-group dropright">
+    <button type="button" class="btn btn-secondary">
+        Warehouse
+    </button>
+    <button class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+            type="button"
+            disabled="@(warehouses is null)"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+    </button>
+    <div class="dropdown-menu">
+        @if (warehouses is not null)
+        {
+            @foreach (var warehouse in warehouses)
+            {
+                <a class="dropdown-item" @onclick="(() => OnWarehouseChange.InvokeAsync(warehouse))">@warehouse.Name</a>
+            }
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public EventCallback<WarehouseVM> OnWarehouseChange { get; set; }
+
+    private IEnumerable<WarehouseVM> warehouses;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = _clientFactory.CreateClient(DataSource.WAREHOUSE_API);
+        var url = "Warehouse/GetAllWarehouses";
+
+        warehouses = await client.GetFromJsonAsync<IEnumerable<WarehouseVM>>(url);
+    }
+}

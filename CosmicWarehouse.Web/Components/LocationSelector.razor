@@ -1,17 +1,19 @@
 ﻿@using Models
 @using CosmicWarehouse.Domain.ViewModels
 
+@namespace CosmicWarehouse.Web.Components
 @inject IHttpClientFactory _clientFactory
+
 
 <div class="btn-group dropright">
     <button type="button" class="btn btn-secondary">
         Location
     </button>
-    <button class="btn btn-secondary dropdown-toggle dropdown-toggle-split" 
+    <button class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
             type="button"
-            disabled="@(locations is null)" 
-            data-toggle="dropdown" 
-            aria-haspopup="true" 
+            disabled="@(locations is null)"
+            data-toggle="dropdown"
+            aria-haspopup="true"
             aria-expanded="false">
     </button>
     <div class="dropdown-menu">
