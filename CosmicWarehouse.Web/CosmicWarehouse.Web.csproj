@@ -13,9 +13,4 @@
     <ProjectReference Include="..\CosmicWarehouse.Domain\CosmicWarehouse.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Admin\" />
-    <Folder Include="Pages\Admin\Warehouse\" />
-  </ItemGroup>
-
 </Project>

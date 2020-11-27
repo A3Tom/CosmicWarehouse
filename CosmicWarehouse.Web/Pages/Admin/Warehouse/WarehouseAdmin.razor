@@ -1,0 +1,86 @@
+﻿@page "/admin/warehouse"
+
+@using Models
+@using CosmicWarehouse.Web.Components
+@using CosmicWarehouse.Domain.ViewModels
+
+@inject IHttpClientFactory _clientFactory
+
+<h1>@pageTitle</h1>
+
+@if (!string.IsNullOrEmpty(errorString))
+{
+    <p>
+        <div class="alert-danger">@errorString</div>
+    </p>
+}
+else
+{
+    <div class="row" style="padding-bottom: 2rem">
+        <div class="col-5">
+            <WarehouseSelector OnWarehouseChange="OnWarehouseChange"></WarehouseSelector>
+        </div>
+        <div class="col-1"></div>
+    </div>
+    <div class="row" style="padding-bottom: 2rem">
+        @if (selectedWarehouse is not null)
+        {
+            <div class="card col-5">
+
+                <div class="card-body">
+                    <h5 class="card-title">@selectedWarehouse.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@(selectedWarehouse.Active ? "Active" : "Inactive") warehouse</h6>
+                    <p class="card-text">@selectedWarehouse.Description</p>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-12" style="flex:auto">
+        @if (warehouseLocations is not null)
+        {
+            @foreach (var location in warehouseLocations)
+            {
+                <div class="card-body">
+                    <h5 class="card-title">@location.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@(location.Active ? "Active" : "Inactive") location</h6>
+                    <p class="card-text">@location.Description</p>
+                </div>
+            }
+        }
+    </div>
+}
+
+@code {
+    private string pageTitle = "Warehouse Admin";
+    private HttpClient client;
+
+    private string errorString;
+
+    private WarehouseVM selectedWarehouse;
+    private IEnumerable<LocationVM> warehouseLocations;
+
+    protected override void OnInitialized()
+    {
+        client = _clientFactory.CreateClient(DataSource.WAREHOUSE_API);
+    }
+
+    private async Task OnWarehouseChange(WarehouseVM warehouse)
+    {
+        selectedWarehouse = warehouse;
+        await LoadLocationsForWarehouse(warehouse.Id);
+    }
+
+    private async Task LoadLocationsForWarehouse(int warehouseId)
+    {
+        try
+        {
+            var url = $"Location/GetLocations?warehouseId={warehouseId}";
+
+            warehouseLocations = await client.GetFromJsonAsync<IEnumerable<LocationVM>>(url);
+        }
+        catch (Exception ex)
+        {
+            errorString = ex.Message;
+        }
+    }
+}
