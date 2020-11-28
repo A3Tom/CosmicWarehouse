@@ -1,10 +1,12 @@
 ﻿@page "/admin/addwarehouse"
 
+@using System.Text
+@using System.Text.Json
 @using Models
-@using CosmicWarehouse.Web.Components
-@using CosmicWarehouse.Domain.ViewModels
+@using CosmicWarehouse.Domain.Models
 
 @inject IHttpClientFactory _clientFactory
+@inject NavigationManager _navigationManager
 
 <h1>@pageTitle</h1>
 
@@ -16,24 +18,27 @@
 }
 else
 {
-    <div class="row" style="padding-bottom: 2rem">
-        <div class="col-5">
-            <WarehouseSelector OnWarehouseChange="OnWarehouseChange"></WarehouseSelector>
-        </div>
-        <div class="col-1"></div>
-    </div>
-    <div class="row row-cols-3 row-cols-md-2" style="padding-bottom: 2rem">
-        @if (selectedWarehouse is not null)
-        {
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">@selectedWarehouse.Name</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">@(selectedWarehouse.Active ? "Active" : "Inactive") warehouse</h6>
-                    <p class="card-text">@selectedWarehouse.Description</p>
-                </div>
+    <EditForm EditContext="@editContext" OnSubmit="@HandleSubmit">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Warehouse Name</span>
             </div>
-        }
-    </div>
+            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" @bind-value="newWarehouse.Name">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" @bind-value="newWarehouse.Description">
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-success">Add Warehouse</button>
+        </div>
+
+    </EditForm>
 }
 
 @code {
@@ -42,15 +47,43 @@ else
 
     private string errorString;
 
-    private WarehouseVM selectedWarehouse;
+    private WarehouseDto newWarehouse = new();
+    private EditContext editContext;
 
     protected override void OnInitialized()
     {
+        editContext = new EditContext(newWarehouse);
         client = _clientFactory.CreateClient(DataSource.WAREHOUSE_API);
     }
 
-    private void OnWarehouseChange(WarehouseVM warehouse)
+    private async Task HandleSubmit()
     {
-        selectedWarehouse = warehouse;
+        var isValid = editContext.Validate();
+
+        if (isValid)
+        {
+            //TODO : Make this a static method in its own class to call from wherever
+            var url = $"Warehouse/AddWarehouse";
+            var payload = new StringContent(
+                JsonSerializer.Serialize(newWarehouse),
+                Encoding.UTF8,
+                "application/json");
+
+            using var response = await client.PostAsync(url, payload);
+
+            if (response.IsSuccessStatusCode)
+            {
+                _navigationManager.NavigateTo("admin/warehouse");
+            }
+            else
+            {
+                errorString = response.ReasonPhrase;
+            }
+        }
+        else
+        {
+            errorString = "Invalid";
+        }
     }
+
 }
