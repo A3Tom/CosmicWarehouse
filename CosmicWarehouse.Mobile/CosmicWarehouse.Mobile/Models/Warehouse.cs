@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CosmicWarehouse.Mobile.Models
+﻿namespace CosmicWarehouse.Mobile.Models
 {
-    class Warehouse
+    public class Warehouse
     {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+        public string Description { get; set; }
+
+        public bool Active { get; set; }
     }
 }
